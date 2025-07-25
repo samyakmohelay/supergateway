@@ -3,7 +3,7 @@ FROM node:18-bullseye
 WORKDIR /app
 
 # Install Supergateway and MCP server globally
-RUN npm install -g supergateway @n8n/mcp-server
+RUN npm install -g supergateway 
 
 # Set environment variables
 ENV MCP_MODE=stdio
