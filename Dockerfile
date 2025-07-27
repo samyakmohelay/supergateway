@@ -14,7 +14,7 @@ ENV N8N_API_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJlMmY0N2Q3ZC04YTd
 
 # Start Supergateway and point it at your running n8n instance
 CMD npx supergateway \
-  --sse \
+  --streamableHttp \
   --port 8000 \
   --baseUrl http://localhost:8000 \
   --ssePath /sse \
