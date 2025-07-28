@@ -12,8 +12,8 @@ ENTRYPOINT ["npx", "supergateway"]
 # CMD ["--stdio", "npx -y @modelcontextprotocol/server-filesystem /data","--port", "8000","--baseUrl", "https://supergateway.onrender.com","--ssePath", "/sse","--messagePath", "/message"]
 # It is working the above one
 
-CMD ["--streamableHttp","https://n8n-mcp.onrender.com/mcp","--port","8000","--baseUrl","https://supergateway.onrender.com","--ssePath","/sse","--messagePath","/message"]
-
+# CMD ["--streamableHttp","https://n8n-mcp.onrender.com/mcp","--port","8000","--baseUrl","https://supergateway.onrender.com","--ssePath","/sse","--messagePath","/message"]
+CMD ["--streamableHttp", "https://n8n-mcp.onrender.com/mcp","--outputTransport", "sse","--port", "8000","--baseUrl", "https://supergateway.onrender.com","--ssePath", "/sse","--messagePath", "/message"]
 
 
 
