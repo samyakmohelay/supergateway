@@ -1,5 +1,5 @@
 FROM supercorp/supergateway:latest
-
+RUN mkdir /data
 # Use ENTRYPOINT to ensure arguments are passed correctly
 ENTRYPOINT ["npx", "supergateway"]
 # CMD ["--sse", "--port", "8000", "--baseUrl", "http://localhost:8000", "--ssePath", "/sse", "--messagePath", "/message"]
