@@ -3,9 +3,14 @@ FROM supercorp/supergateway:latest
 # Use ENTRYPOINT to ensure arguments are passed correctly
 ENTRYPOINT ["npx", "supergateway"]
 # CMD ["--sse", "--port", "8000", "--baseUrl", "http://localhost:8000", "--ssePath", "/sse", "--messagePath", "/message"]
-CMD --sse --port 8000 --baseUrl https://localhost:8000 --ssePath /sse --messagePath /message
-
-
+# Pass flags to supergateway via exec-form CMD
+CMD [
+  "--sse",
+  "--port", "8000",
+  "--baseUrl", "https://localhost:8000",
+  "--ssePath", "/sse",
+  "--messagePath", "/message"
+]
 
 
 
