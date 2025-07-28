@@ -1,19 +1,52 @@
-FROM supercorp/supergateway:latest
-RUN mkdir /data
-# Use ENTRYPOINT to ensure arguments are passed correctly
-ENTRYPOINT ["npx", "supergateway"]
-# CMD ["--sse", "--port", "8000", "--baseUrl", "http://localhost:8000", "--ssePath", "/sse", "--messagePath", "/message"]
-# Pass flags to supergateway via exec-form CMD
-# CMD ["--sse","--port","8000","--baseUrl","https://localhost:8000","--ssePath","/sse","--messagePath","/message"]
+FROM node:18-alpine
 
-# CMD ["--mcpUrl", "https://n8n-figx.onrender.com","--port", "8000","--baseUrl", "https://supergateway.onrender.com","--ssePath","/sse","--messagePath", "/message"]
+# Install the HTTP/SSE-capable MCP server
+RUN npm install -g n8n-mcp
 
-# CMD ["--stdio", "npx -y @modelcontextprotocol/server-filesystem /Users/MyName/Desktop","--port", "8000","--baseUrl", "https://your-supergateway-service.onrender.com","--ssePath", "/sse","--messagePath", "/message"]
-# CMD ["--stdio", "npx -y @modelcontextprotocol/server-filesystem /data","--port", "8000","--baseUrl", "https://supergateway.onrender.com","--ssePath", "/sse","--messagePath", "/message"]
-# It is working the above one
+# Provide n8n credentials
+ENV N8N_API_URL=https://n8n-figx.onrender.com
+ENV N8N_API_KEY=eyJhbGci...
 
-# CMD ["--streamableHttp","https://n8n-mcp.onrender.com/mcp","--port","8000","--baseUrl","https://supergateway.onrender.com","--ssePath","/sse","--messagePath","/message"]
-CMD ["--streamableHttp", "https://n8n-mcp.onrender.com/mcp","--outputTransport", "sse","--port", "8000","--baseUrl", "https://supergateway.onrender.com","--ssePath", "/sse","--messagePath", "/message"]
+# Expose port 8000
+EXPOSE 8000
+
+# Run both services: start n8n-mcp (stdio) and pipe it into Supergateway’s stdio→SSE bridge
+ENTRYPOINT ["sh","-c"]
+CMD  "npx -y n8n-mcp --port 8000 & \
+      npx -y supergateway \
+        --stdio \"npx -y n8n-mcp --port 8000\" \
+        --port 8000 \
+        --baseUrl https://supergateway.onrender.com \
+        --ssePath /sse \
+        --messagePath /message"
+
+
+
+
+
+
+
+
+
+
+
+
+# FROM supercorp/supergateway:latest
+# RUN mkdir /data
+# # Use ENTRYPOINT to ensure arguments are passed correctly
+# ENTRYPOINT ["npx", "supergateway"]
+# # CMD ["--sse", "--port", "8000", "--baseUrl", "http://localhost:8000", "--ssePath", "/sse", "--messagePath", "/message"]
+# # Pass flags to supergateway via exec-form CMD
+# # CMD ["--sse","--port","8000","--baseUrl","https://localhost:8000","--ssePath","/sse","--messagePath","/message"]
+
+# # CMD ["--mcpUrl", "https://n8n-figx.onrender.com","--port", "8000","--baseUrl", "https://supergateway.onrender.com","--ssePath","/sse","--messagePath", "/message"]
+
+# # CMD ["--stdio", "npx -y @modelcontextprotocol/server-filesystem /Users/MyName/Desktop","--port", "8000","--baseUrl", "https://your-supergateway-service.onrender.com","--ssePath", "/sse","--messagePath", "/message"]
+# # CMD ["--stdio", "npx -y @modelcontextprotocol/server-filesystem /data","--port", "8000","--baseUrl", "https://supergateway.onrender.com","--ssePath", "/sse","--messagePath", "/message"]
+# # It is working the above one
+
+# # CMD ["--streamableHttp","https://n8n-mcp.onrender.com/mcp","--port","8000","--baseUrl","https://supergateway.onrender.com","--ssePath","/sse","--messagePath","/message"]
+# CMD ["--streamableHttp", "https://n8n-mcp.onrender.com/mcp","--outputTransport", "sse","--port", "8000","--baseUrl", "https://supergateway.onrender.com","--ssePath", "/sse","--messagePath", "/message"]
 
 
 
