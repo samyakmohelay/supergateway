@@ -6,10 +6,9 @@ ENTRYPOINT ["npx", "supergateway"]
 # Pass flags to supergateway via exec-form CMD
 # CMD ["--sse","--port","8000","--baseUrl","https://localhost:8000","--ssePath","/sse","--messagePath","/message"]
 
-CMD ["--mcpUrl", "https://n8n-figx.onrender.com","--port", "8000","--baseUrl", "https://supergateway.onrender.com","--ssePath","/sse","--messagePath", "/message"]
+# CMD ["--mcpUrl", "https://n8n-figx.onrender.com","--port", "8000","--baseUrl", "https://supergateway.onrender.com","--ssePath","/sse","--messagePath", "/message"]
 
-
-
+CMD ["--stdio", "npx -y @modelcontextprotocol/server-filesystem /Users/MyName/Desktop","--port", "8000","--baseUrl", "https://your-supergateway-service.onrender.com","--ssePath", "/sse","--messagePath", "/message"]
 
 
 
