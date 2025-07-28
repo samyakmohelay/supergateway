@@ -9,8 +9,10 @@ ENTRYPOINT ["npx", "supergateway"]
 # CMD ["--mcpUrl", "https://n8n-figx.onrender.com","--port", "8000","--baseUrl", "https://supergateway.onrender.com","--ssePath","/sse","--messagePath", "/message"]
 
 # CMD ["--stdio", "npx -y @modelcontextprotocol/server-filesystem /Users/MyName/Desktop","--port", "8000","--baseUrl", "https://your-supergateway-service.onrender.com","--ssePath", "/sse","--messagePath", "/message"]
-CMD ["--stdio", "npx -y @modelcontextprotocol/server-filesystem /data","--port", "8000","--baseUrl", "https://supergateway.onrender.com","--ssePath", "/sse","--messagePath", "/message"]
+# CMD ["--stdio", "npx -y @modelcontextprotocol/server-filesystem /data","--port", "8000","--baseUrl", "https://supergateway.onrender.com","--ssePath", "/sse","--messagePath", "/message"]
+# It is working the above one
 
+CMD ["--streamableHttp","https://n8n-mcp.onrender.com/mcp","--port","8000","--baseUrl","https://supergateway.onrender.com","--ssePath","/sse","--messagePath","/message"]
 
 
 
